@@ -1,0 +1,70 @@
+
+version: 2
+
+models:
+  - name: device
+    description: >
+      Transformed device data enriched with store info. 
+      Each device is tied to a specific store and used for transactions.
+    columns:
+      - name: id
+        description: Unique identifier for the device
+        tests:
+          - not_null
+          - unique
+      - name: store_id
+        description: Foreign key to the store that owns this device
+        tests:
+          - not_null
+      - name: device_type
+        description: Integer representing the hardware type (1 to 5)
+
+  - name: store
+    description: >
+      Cleaned and structured store information including store metadata 
+      such as typology and country.
+    columns:
+      - name: id
+        description: Unique identifier for each store
+        tests:
+          - not_null
+          - unique
+      - name: store_name
+        description: Name of the store
+      - name: country
+        description: Country in which the store operates
+      - name: typology
+        description: Store typology or classification
+
+  - name: transaction
+    description: >
+      Base fact table containing one row per transaction including product,
+      amount, status, and device used.
+    columns:
+      - name: id
+        description: Unique transaction ID
+        tests:
+          - not_null
+          - unique
+      - name: device_id
+        description: Foreign key referencing the device used in the transaction
+        tests:
+          - not_null
+      - name: product_name
+        description: Name of the purchased product
+      - name: product_sku
+        description: SKU (stock keeping unit) identifier for the product
+      - name: category_name
+        description: Category of the product
+      - name: amount
+        description: Amount paid in EUR
+      - name: status
+        description: Payment status (e.g., accepted, declined)
+      - name: card_number
+        description: Obfuscated card number used in the transaction
+      - name: cvv
+        description: CVV code used during payment
+      - name: created_at
+        description: Timestamp when the transaction was recorded
+      - name: happened_at
+        description: Timestamp when the transaction actually happened

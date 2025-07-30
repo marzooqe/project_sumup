@@ -1,0 +1,16 @@
+SELECT 
+    TXN.ID,
+    TXN.STORE_ID,
+    STR.NAME AS STORE_NAME,
+    STR.COUNTRY,
+    STR.TYPOLOGY,
+    TXN.PRODUCT_SKU,
+    DVC.TYPE AS DEVICE_TYPE,
+    TXN.CREATED_AT,
+    TXN.HAPPENED_AT,
+    TXN.AMOUNT
+FROM {{ref('fact_transaction')}} AS TXN
+LEFT JOIN {{ref('dim_device')}} AS DVC ON TXN.DEVICE_ID = DVC.ID
+LEFT JOIN {{ref('dim_status')}} AS STS ON TXN.STATUS_ID = STS.ID
+LEFT JOIN {{ref('dim_store')}} AS STR ON TXN.STORE_ID = STR.ID
+LEFT JOIN {{ref('dim_product')}} AS PRD ON TXN.PRODUCT_SKU = PRD.SKU

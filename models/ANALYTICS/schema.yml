@@ -1,0 +1,151 @@
+version: 2
+
+models:
+  - name: dim_card_detail
+    description: >
+      Unique list of card holders identified by MD5 hash of the card number.
+      Used to anonymize sensitive payment data.
+    columns:
+      - name: id
+        description: MD5 hash of card_number (surrogate key for card holder).
+        tests:
+          - not_null
+          - unique
+
+      - name: card_number
+        description: Raw card number used in the transaction. Considered PII.
+        tests:
+          - not_null
+
+      - name: cvv
+        description: CVV code of the card. Considered PII.
+        tests:
+          - not_null
+
+  - name: dim_device
+    description: >
+      Device dimension containing device ID, type, and store mapping.
+    columns:
+      - name: id
+        description: Unique identifier of the device.
+        tests:
+          - not_null
+          - unique
+
+      - name: type
+        description: Integer representing device type (1 to 5).
+        tests:
+          - not_null
+
+      - name: store_id
+        description: Foreign key to the store the device is assigned to.
+        tests:
+          - not_null
+
+  - name: dim_product
+    description: >
+      Product dimension built from transaction data using distinct SKU.
+      NOTE: Product name and category are corrupted — same SKU has conflicting values.
+    columns:
+      - name: sku
+        description: Product SKU (stock keeping unit).
+        tests:
+          - not_null
+          - unique
+
+      - name: name
+        description: Product name (data quality issue inconsistent per SKU).
+
+      - name: category
+        description: Product category (data quality issue inconsistent per SKU).
+
+  - name: dim_status
+    description: >
+      Dimension of unique payment statuses with hashed ID.
+    columns:
+      - name: id
+        description: MD5 hash of status text (used as surrogate key).
+        tests:
+          - not_null
+          - unique
+
+      - name: status
+        description: Status of the transaction (e.g., accepted, declined).
+        tests:
+          - not_null
+
+  - name: dim_store
+    description: >
+      Store dimension table with metadata, location, and customer ownership.
+    columns:
+      - name: id
+        description: Unique identifier of the store.
+        tests:
+          - not_null
+          - unique
+
+      - name: name
+        description: Name of the store.
+
+      - name: address
+        description: Street address of the store.
+
+      - name: city
+        description: City where the store is located.
+
+      - name: country
+        description: Country where the store operates.
+
+      - name: created_at
+        description: Timestamp when the store was created.
+
+      - name: typology
+        description: Type/category of store (e.g., kiosk, grocery).
+
+      - name: customer_id
+        description: Customer ID that owns the store.
+
+  - name: fact_transaction
+    description: >
+      Central fact table containing enriched transactional data. 
+      Includes references to devices, stores, statuses, and card details.
+    columns:
+      - name: id
+        description: Unique transaction ID.
+        tests:
+          - not_null
+          - unique
+
+      - name: device_id
+        description: Identifier for the device used in the transaction.
+        tests:
+          - not_null
+
+      - name: store_id
+        description: Store where the transaction took place (via device).
+        tests:
+          - not_null
+
+      - name: product_sku
+        description: SKU of the product involved in the transaction.
+        tests:
+          - not_null
+
+      - name: created_at
+        description: Timestamp when the transaction record was created.
+
+      - name: happened_at
+        description: Actual timestamp when the transaction occurred.
+
+      - name: amount
+        description: Transaction amount in EUR.
+
+      - name: status_id
+        description: Foreign key to DIM_STATUS (normalized status).
+        tests:
+          - not_null
+
+      - name: card_id
+        description: Foreign key to DIM_CARD_DETAIL (anonymized card holder).
+        tests:
+          - not_null

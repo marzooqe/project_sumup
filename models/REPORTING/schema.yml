@@ -1,0 +1,49 @@
+
+version: 2
+
+models:
+  - name: transaction_performance
+    description: >
+      Enriched transactional reporting model combining facts and dimensions.
+      Useful for building performance dashboards by store, country, and product metrics.
+    columns:
+      - name: id
+        description: Unique identifier of the transaction.
+        tests:
+          - not_null
+          - unique
+
+      - name: store_id
+        description: Foreign key to the store involved in the transaction.
+        tests:
+          - not_null
+
+      - name: store_name
+        description: Store name.
+
+      - name: country
+        description: Country where the store is located.
+
+      - name: typology
+        description: Store type/classification (e.g., supermarket, kiosk).
+
+      - name: device_type
+        description: Device type used for the transaction (1–5).
+        tests:
+          - not_null
+
+      - name: product_sku
+        description: Stock Keeping Unit for the item purchase.
+        tests:
+          - not_null
+
+      - name: created_at
+        description: Timestamp when the transaction record was created.
+
+      - name: happened_at
+        description: Timestamp when the transaction occurred.
+
+      - name: amount
+        description: Transaction amount in EUR.
+        tests:
+          - not_null
