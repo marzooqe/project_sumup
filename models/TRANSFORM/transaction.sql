@@ -1,3 +1,8 @@
+{{ config(
+    materialized='incremental',
+    unique_key='ID'
+) }}
+
 SELECT
     CAST(ID AS INTEGER) AS ID,
     CAST(DEVICE_ID AS INTEGER) AS DEVICE_ID,
@@ -10,4 +15,8 @@ SELECT
     CVV,
     CREATED_AT,
     HAPPENED_AT
-FROM {{ ref('transactions') }}
+FROM {{ ref('transactions') }} AS TXN
+
+{% if is_incremental() %}
+  WHERE TXN.CREATED_AT > (SELECT MAX(CREATED_AT) FROM {{ this }})
+{% endif %}

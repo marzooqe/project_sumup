@@ -45,3 +45,6 @@ models:
     REPORTING:
       +schema: REPORTING
       +materialized: table
+    OUTPUT:
+      +schema: OUTPUT
+      +materialized: table
