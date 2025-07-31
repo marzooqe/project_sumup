@@ -1,0 +1,28 @@
+[sqlfluff]
+dialect = postgres
+templater = dbt
+sql_file_exts = .sql
+max_line_length = 180
+
+# Exclude rules if they’re too strict for now
+exclude_rules = L009,L031,L034  
+# (e.g., trailing comma, aliasing, SELECT wildcards)
+
+ignore = parsing
+
+[sqlfluff:templater:dbt]
+
+project_dir = .
+profiles_dir = ~/.dbt
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = upper
+
+[sqlfluff:rules:capitalisation.identifiers]
+extended_capitalisation_policy = upper
+
+[sqlfluff:rules:layout.commas]  # No leading commas
+comma_style = trailing
+
+[sqlfluff:rules:references.keywords]  # Keyword immediately after bracket
+allow_line_breaks = true

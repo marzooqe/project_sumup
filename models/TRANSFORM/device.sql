@@ -1,5 +1,5 @@
-SELECT 
-    ID,
-    TYPE,
-    STORE_ID
-FROM {{ref('devices')}}
+SELECT
+    CAST(ID AS INTEGER) AS ID,
+    CAST(TYPE AS INTEGER) AS TYPE,
+    CAST(STORE_ID AS INTEGER) AS STORE_ID
+FROM {{ ref('devices') }}

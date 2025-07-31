@@ -1,60 +1,58 @@
-select 
-	STORE_NAME,
-	SUM(AMOUNT) as TOTAL_AMOUNT
-from sumup."REPORTING".transaction_performance tp 
-group by STORE_NAME 
-order by TOTAL_AMOUNT desc 
-limit 10;
+SELECT
+    STORE_NAME,
+    SUM(AMOUNT) AS TOTAL_AMOUNT
+FROM SUMUP."REPORTING".TRANSACTION_PERFORMANCE
+GROUP BY STORE_NAME
+ORDER BY TOTAL_AMOUNT DESC
+LIMIT 10;
 
-select 
-	PRODUCT_SKU,
-	COUNT(*) as TOTAL_QUANTITY, 
-	SUM(AMOUNT) as TOTAL_AMOUNT
-from sumup."REPORTING".transaction_performance tp 
-group by PRODUCT_SKU 
-order by TOTAL_QUANTITY desc, TOTAL_AMOUNT desc 
-limit 10;
+SELECT
+    PRODUCT_SKU,
+    COUNT(*) AS TOTAL_QUANTITY,
+    SUM(AMOUNT) AS TOTAL_AMOUNT
+FROM SUMUP."REPORTING".TRANSACTION_PERFORMANCE
+GROUP BY PRODUCT_SKU
+ORDER BY TOTAL_QUANTITY DESC, TOTAL_AMOUNT DESC
+LIMIT 10;
 
-select 
-	country,
-	typology,
-	ROUND(SUM(AMOUNT)/count(distinct id),2) as AVG_TRANSACTED_AMOUNT 
-from sumup."REPORTING".transaction_performance tp 
-group by 
-	COUNTRY,
-	TYPOLOGY
-order by 
-	country,
-	AVG_TRANSACTED_AMOUNT desc;
+SELECT
+    COUNTRY,
+    TYPOLOGY,
+    ROUND(SUM(AMOUNT) / COUNT(DISTINCT ID), 2) AS AVG_TRANSACTED_AMOUNT
+FROM SUMUP."REPORTING".TRANSACTION_PERFORMANCE
+GROUP BY
+    COUNTRY,
+    TYPOLOGY
+ORDER BY
+    COUNTRY ASC,
+    AVG_TRANSACTED_AMOUNT DESC;
 
-select 
-	DEVICE_type,
-	ROUND(COUNT(distinct id)*100.00/(select count(distinct id) from sumup."REPORTING".transaction_performance),2)||'%' as PCT_TRANSACTIONS
-from sumup."REPORTING".transaction_performance tp 
-group by DEVICE_type 
-order by PCT_TRANSACTIONS desc 
-;
+SELECT
+    DEVICE_TYPE,
+    ROUND(COUNT(DISTINCT ID) * 100.00 / (SELECT COUNT(DISTINCT ID) FROM SUMUP."REPORTING".TRANSACTION_PERFORMANCE), 2) || '%' AS PCT_TRANSACTIONS
+FROM SUMUP."REPORTING".TRANSACTION_PERFORMANCE
+GROUP BY DEVICE_TYPE
+ORDER BY PCT_TRANSACTIONS DESC;
 
-with base_data as 
-(
-select 
-	tp.store_id ,
-	STORE_NAME,
-	tp.created_at ,
-	lead(created_at) over (partition by store_id order by created_at) as next_order_date,
-	rank() over (partition by store_id order by created_at) as rank
-from sumup."REPORTING".transaction_performance tp
-order by rank
+WITH BASE_DATA AS (
+    SELECT
+        TP.STORE_ID,
+        TP.STORE_NAME,
+        TP.CREATED_AT,
+        LEAD(TP.CREATED_AT) OVER (PARTITION BY TP.STORE_ID ORDER BY TP.CREATED_AT) AS NEXT_ORDER_DATE,
+        RANK() OVER (PARTITION BY TP.STORE_ID ORDER BY TP.CREATED_AT) AS RANK
+    FROM SUMUP."REPORTING".TRANSACTION_PERFORMANCE AS TP
+    ORDER BY RANK
 )
-select 
-	store_id,
-	store_name,
-    AVG(next_order_date - created_at) as avg_time_to_first_five_order
-from base_data
-where rank <= 5
-group by
-	store_id,
-	store_name
-order by
-	avg_time_to_first_five_order
-;
+
+SELECT
+    STORE_ID,
+    STORE_NAME,
+    AVG(NEXT_ORDER_DATE - CREATED_AT) AS AVG_TIME_TO_FIRST_FIVE_ORDER
+FROM BASE_DATA
+WHERE RANK <= 5
+GROUP BY
+    STORE_ID,
+    STORE_NAME
+ORDER BY
+    AVG_TIME_TO_FIRST_FIVE_ORDER;

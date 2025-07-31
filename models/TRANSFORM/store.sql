@@ -1,10 +1,10 @@
-SELECT 
-    ID,
+SELECT
+    CAST(ID AS INTEGER) AS ID,
     NAME,
     ADDRESS,
     CITY,
     COUNTRY,
     CREATED_AT,
     TYPOLOGY,
-    CUSTOMER_ID
-FROM {{ref('stores')}}
+    CAST(CUSTOMER_ID AS INTEGER) AS CUSTOMER_ID    
+FROM {{ ref('stores') }}

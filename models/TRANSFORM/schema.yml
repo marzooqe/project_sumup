@@ -12,10 +12,12 @@ models:
         tests:
           - not_null
           - unique
+          - integer_check
       - name: store_id
         description: Foreign key to the store that owns this device
         tests:
           - not_null
+          - integer_check
       - name: device_type
         description: Integer representing the hardware type (1 to 5)
 
@@ -29,6 +31,7 @@ models:
         tests:
           - not_null
           - unique
+          - integer_check
       - name: store_name
         description: Name of the store
       - name: country
@@ -46,10 +49,12 @@ models:
         tests:
           - not_null
           - unique
+          - integer_check
       - name: device_id
         description: Foreign key referencing the device used in the transaction
         tests:
           - not_null
+          - integer_check
       - name: product_name
         description: Name of the purchased product
       - name: product_sku
@@ -60,6 +65,9 @@ models:
         description: Amount paid in EUR
       - name: status
         description: Payment status (e.g., accepted, declined)
+        tests:
+          - accepted_values:
+              values: ['accepted', 'refused', 'cancelled']
       - name: card_number
         description: Obfuscated card number used in the transaction
       - name: cvv

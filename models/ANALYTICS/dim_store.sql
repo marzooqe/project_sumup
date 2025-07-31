@@ -1,4 +1,4 @@
-SELECT 
+SELECT
     ID,
     NAME,
     ADDRESS,
@@ -7,4 +7,4 @@ SELECT
     CREATED_AT,
     TYPOLOGY,
     CUSTOMER_ID
-FROM {{ref('store')}}
+FROM {{ ref('store') }}
