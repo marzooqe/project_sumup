@@ -29,6 +29,22 @@ jobs:
           python -m pip install --upgrade pip
           pip install sqlfluff sqlfluff-templater-dbt dbt-postgres
 
+      - name: Set up dbt profile
+        run: |
+          mkdir -p ~/.dbt
+          echo "project_sumup:" >> ~/.dbt/profiles.yml
+          echo "  target: dev" >> ~/.dbt/profiles.yml
+          echo "  outputs:" >> ~/.dbt/profiles.yml
+          echo "    dev:" >> ~/.dbt/profiles.yml
+          echo "      type: postgres" >> ~/.dbt/profiles.yml
+          echo "      host: localhost" >> ~/.dbt/profiles.yml
+          echo "      user: postgres" >> ~/.dbt/profiles.yml
+          echo "      pass: postgres" >> ~/.dbt/profiles.yml
+          echo "      port: 5432" >> ~/.dbt/profiles.yml
+          echo "      dbname: sumup" >> ~/.dbt/profiles.yml
+          echo "      schema: public" >> ~/.dbt/profiles.yml
+          echo "      threads: 1" >> ~/.dbt/profiles.yml
+
       - name: Lint SQL models with SQLFluff
         run: |
           sqlfluff lint models/ --dialect postgres
