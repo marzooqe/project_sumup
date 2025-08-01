@@ -5,19 +5,19 @@
 - [Output](analyses)
 - Execution
 
-- Clone the repo
+Clone the repo
 <pre><code>
-git clone https://github.com/yourusername/project_sumup.git
+git clone https://github.com/marzooqe/project_sumup.git
 cd project_sumup 
 </code></pre>
-- Place Excel files inside [source_data](source_data)
-The shared file is already placed inside. this step is optional to add more data of same source data
-- Create Python environment and install requirements
+Place Excel files inside [source_data](source_data)
+(The shared file is already placed inside. this step is optional to add more data of same source data)
+Create Python environment and install requirements
 <pre><code>
 python -m venv venv
 venv\Scripts\activate       (on Windows)
 </code></pre>
-- Run everything in one go:
+Run everything in one go:
 <pre><code>
 pip install -r requirements.txt && python run_elt_pipeline.py
 </code></pre>
