@@ -1,35 +1,31 @@
-![alt text](documentation\image-1.png)
+![Sumup](documentation/image-1.png)
 
-Quick Access
+# Quick Access
 
-DBT Models
-Execution 
-
-
-- [Python Script](python_scripts)
-- [DBT Models](models)
-Execution
+# [Python Script](python_scripts)
+# [DBT Models](models)
+# Execution
 # Clone the repo
 <pre><code>
-```git clone https://github.com/yourusername/project_sumup.git
+git clone https://github.com/yourusername/project_sumup.git
 cd project_sumup 
-```</code></pre>
+</code></pre>
 # Place Excel files inside [source_data](source_data)
 The shared file is already placed inside. this step is optional to add more data of same source data
 # Create Python environment and install requirements
 <pre><code>
-``` python -m venv venv
-    venv\Scripts\activate       (on Windows)
-```</code></pre>
+python -m venv venv
+venv\Scripts\activate       (on Windows)
+</code></pre>
 # Run everything in one go:
 <pre><code>
 pip install -r requirements.txt && python run_elt_pipeline.py
-```</code></pre>
+</code></pre>
 
-- [Output](analyses)
+# [Output](analyses)
 
 
-Project SumUp
+# Project SumUp
 Welcome to the Project SumUp repository! This project implements ETL workflow using dbt & python, architecting raw transactional data into data model and actionable business insights.
 
 🧭 Overview
@@ -103,7 +99,7 @@ dbt run
 dbt test
 
 🧱 Data Model / Architecture
-![alt text](documentation\image.png)
+![Data Model](documentation/image.png)
 The diagram represents overall data flow and the architecure design of the modeling. The data is modeled based on star dimensional methodology and mainly comprises Facts and Dimension tables at the core of it. The star schema modeling is a classic method, earning its name based on how the data is organised, with a central fact table amd multiple dimension tables surrounding it. 
 
 Architecture 
