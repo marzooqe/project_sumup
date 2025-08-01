@@ -35,7 +35,7 @@ def load_all_csvs_in_folder(folder_path, conn_config, table_prefix="raw_", schem
 
 # --- Usage ---
 if __name__ == "__main__":
-    csv_folder = "."  # Folder containing .csv files
+    csv_folder = SEED_DIR = os.path.join(ROOT_DIR, "seeds")  # Folder containing .csv files
 
     connection_config = {
         "dbname": "sumup",
@@ -45,4 +45,4 @@ if __name__ == "__main__":
         "port": 5432
     }
 
-    load_all_csvs_in_folder(csv_folder, connection_config, schema="STAGING")
+    load_all_csvs_in_folder(csv_folder, connection_config, schema="staging")
