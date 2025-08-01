@@ -4,31 +4,29 @@
 - [DBT Models](models)
 - [Output](analyses)
 
-- Execution
-Downaload & install [postgres](https://www.postgresql.org/download/)  
+- Execution  
+<br />Downaload & install [postgres](https://www.postgresql.org/download/)  
 Download [Dbeaver](https://dbeaver.io/download/) for running sql queries and verifying the DB.  
-Open Dbeaver and in sql code window create database named sumup to host all the data.
-<pre><code>create database sumup</code></pre>
+Open Dbeaver and in sql code window create database named "sumup" to host all the data.
+<pre><code>create database sumup;</code></pre>
+
+![connection](documentation/image.png)
+If the new DB is not shown on the left side navigation pane, click new connection  
     "dbname": "sumup",
     "user": "postgres",
     "password": "admin",
     "host": "localhost",
     "port": 5432
-
-
-Clone the repo
+Clone the repository from GitHub
 <pre><code>git clone https://github.com/marzooqe/project_sumup.git
 cd project_sumup </code></pre>
 Place Excel files inside [source_data](source_data)
-(The shared file is already placed inside. this step is optional to add more data of same source data)
+(The files shared is already placed inside. This step is optional to add more data of same source data for testing )
 Create Python environment and install requirements
-<pre><code>python -m venv venv
-venv\Scripts\activate       (on Windows)</code></pre>
-Run everything in one go:
+<pre><code>python -m venv dbt-env
+dbt-env\Scripts\activate       (on Windows)</code></pre>
+Run the complete pipline in one go. Triggers python script converting the files to csv -> chain executes next step running dbt build -> dbt test -> dbt run
 <pre><code>pip install -r requirements.txt && python run_elt_pipeline.py</code></pre>
-
-
-
 
 
 # Project SumUp
