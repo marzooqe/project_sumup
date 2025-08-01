@@ -5,14 +5,15 @@
 - [Output](analyses)
 
 - Execution
-Downaload & install [postgres](https://www.postgresql.org/download/)
-Download Dbeaver for running sql queries and verifying the DB. Open Dbeaver and in sql code window create database named sumup to host all the data.
+Downaload & install [postgres](https://www.postgresql.org/download/)  
+Download [Dbeaver](https://dbeaver.io/download/) for running sql queries and verifying the DB.  
+Open Dbeaver and in sql code window create database named sumup to host all the data.
 <pre><code>create database sumup</code></pre>
-        "dbname": "sumup",
-        "user": "postgres",
-        "password": "admin",
-        "host": "localhost",
-        "port": 5432
+    "dbname": "sumup",
+    "user": "postgres",
+    "password": "admin",
+    "host": "localhost",
+    "port": 5432
 
 
 Clone the repo
