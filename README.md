@@ -1,11 +1,11 @@
-![Sumup](documentation/image-1.png)
-
 # Quick Access
 
-# [Python Script](python_scripts)
-# [DBT Models](models)
+- [Python Script](python_scripts)
+- [DBT Models](models)
+- [Output](analyses)
 # Execution
 # Clone the repo
+
 <pre><code>
 git clone https://github.com/yourusername/project_sumup.git
 cd project_sumup 
@@ -22,7 +22,7 @@ venv\Scripts\activate       (on Windows)
 pip install -r requirements.txt && python run_elt_pipeline.py
 </code></pre>
 
-# [Output](analyses)
+
 
 
 # Project SumUp
@@ -127,3 +127,5 @@ After successful dbt build, the Postgres DB (sumup) will contain:
 🧾 Pre-joined reporting tables
 🔍 Answers to the SQL questions already executed to OUTPUT schema
 📚 Documentation (dbt docs generate + dbt docs serve)
+
+![Sumup](documentation/image-1.png)
