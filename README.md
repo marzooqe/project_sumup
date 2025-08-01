@@ -1,11 +1,20 @@
-# Quick Access
+# Quick Start
 
 - [Python Script](python_scripts)
 - [DBT Models](models)
 - [Output](analyses)
-- Execution
 
-Downaload & install [postgres](https://www.postgresql.org/download/) if already not installed
+- Execution
+Downaload & install [postgres](https://www.postgresql.org/download/)
+Download Dbeaver for running sql queries and verifying the DB. Open Dbeaver and in sql code window create database named sumup to host all the data.
+<pre><code>create database sumup</code></pre>
+        "dbname": "sumup",
+        "user": "postgres",
+        "password": "admin",
+        "host": "localhost",
+        "port": 5432
+
+
 Clone the repo
 <pre><code>git clone https://github.com/marzooqe/project_sumup.git
 cd project_sumup </code></pre>
@@ -16,7 +25,7 @@ Create Python environment and install requirements
 venv\Scripts\activate       (on Windows)</code></pre>
 Run everything in one go:
 <pre><code>pip install -r requirements.txt && python run_elt_pipeline.py</code></pre>
-Download Dbeaver for running sql queries and verifying the DB
+
 
 
 
