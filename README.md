@@ -1,4 +1,5 @@
-                ![alt text](image-1.png)
+![alt text](image-1.png)
+
 
 Project SumUp
 Welcome to the Project SumUp repository! This project implements ETL workflow using dbt & python, architecting raw transactional data into data model and actionable business insights.

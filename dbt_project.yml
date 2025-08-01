@@ -36,15 +36,12 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   project_sumup:
     # Config indicated by + and applies to all files under models/example/
-    TRANSFORM:
-      +schema: TRANSFORM
+    transform:
+      +schema: transform
       +materialized: table
-    ANALYTICS:
-      +schema: ANALYTICS
+    analytics:
+      +schema: analytics
       +materialized: table
-    REPORTING:
-      +schema: REPORTING
-      +materialized: table
-    OUTPUT:
-      +schema: OUTPUT
+    reporting:
+      +schema: reporting
       +materialized: table
