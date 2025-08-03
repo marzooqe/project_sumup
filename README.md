@@ -32,7 +32,7 @@ dbt-env\Scripts\activate       (on Windows)</code></pre>
 # Project SumUp
 Welcome to the Project SumUp repository! This project implements ETL workflow using dbt & python, architecting raw transactional data into data model and actionable business insights.
 
-###🧭 Overview
+### 🧭 Overview
 This project simulates a modern data stack that is organised,clean, scalable which addresses data queries from analytics. It includes:
 
 ✅ Raw data ingestion from Excel files using python script
@@ -48,7 +48,7 @@ REPORTING (business focused OBT)
 
 💡 SQL file answering the data questions with output tables:
 
-###⚙️ Prerequisites
+### ⚙️ Prerequisites
 The following tools and setup is required to execute this project:
 
 Tool	        Version	            Description
@@ -61,7 +61,7 @@ DBeaver         25.1.0              UI for querying and verification
 
 The installation and links are provided in the quick start.
 
-###📂 Project Structure  
+### 📂 Project Structure  
     project_sumup/  
     ├── models/  
     │   ├── TRANSFORM/       # Cleaned transformed data  
@@ -76,8 +76,10 @@ The installation and links are provided in the quick start.
     ├── dbt_project.yml      # Project metadata  
     └── README.md            # 📄 You're here!  
 
-###🚀 Execution Guide   
-Execution  
+### 🚀 Execution Guide     
+Working
+The complete execution is chained to sequentially trigger starting from python ELT. The python code triggered picks the excel file from source file of the repository. Converts the excel to csv by taking files with xlsx extention. The converted files are then placed in seed folder of DBT. Python then triggers dbt build creating the schemas and respective tables. Followed by this the dbt test is triggered veryfying the data. Finally the data is available in reporting schema and the analyses folder has executable sql queries for business questions.
+
 <br />-> Downaload & install [postgres](https://www.postgresql.org/download/)  
 -> Download [Dbeaver](https://dbeaver.io/download/) for running sql queries and verifying the DB.  
 -> Open Dbeaver and in sql code window create database named "sumup" to host all the data.
@@ -102,34 +104,32 @@ dbt-env\Scripts\activate       (on Windows)</code></pre>
 -> Now the complete setup is build having data loaded to 3 layer architecture. The data is ready in reporting layer for analysis and to start with the SQL queries in the [analyses](analyses) folder will answer the business question asked.  
 
 
-🧱 Data Model / Architecture
+### 🧱 Data Model / Architecture
 ![Data Model](documentation/image.png)
-The diagram represents overall data flow and the architecure design of the modeling. The data is modeled based on star dimensional methodology and mainly comprises Facts and Dimension tables at the core of it. The star schema modeling is a classic method, earning its name based on how the data is organised, with a central fact table amd multiple dimension tables surrounding it. 
+The diagram represents data flow and the architecure design of the model. The data is modeled based on star dimensional methodology and mainly comprises Facts and Dimension tables at the core of it. The star schema modeling is a classic method, earning its name based on how the data is organised, with a central fact table amd multiple dimension tables surrounding it. 
 
-Architecture 
-With the execution of python scripts data is available in base layer. This model is then developed in DBT core with github version control.  
-The staging layer mirrors the raw source data without transformations business logic, One-to-one mapping with source systems, and it is designed as the fallback data source for uncorrupted raw data without BI intervention. This supports tracing debugging data issues and retro correction if needed.
+The staging layer mirrors the raw source data without any transformations, business logic, One-to-one mapping with source systems, and it is designed as the fallback data source for uncorrupted raw data without BI intervention. This supports tracing debugging data issues and retro correction if needed.
 
 Transformation Layer:
-This layer mainly focuses on transformation of data to flat, filtered, and data type corrected structure.
+This layer focuses on transformation of data to flat, filtered, and data type corrected structure. The lager tables are set to have incremental load.
 
 Analytics Layer:
-This schema is named Analytics and holds the star dimensional model. As seen in the above diagram the central fact transaction table is the core that contains the the metrics and the foreign keys to the related dimension tables. This methedology is what drives scalablity, optimised performance, denormalisation and accessibility. The fact table minimised to hold only keys along with incremental data load stable solution 
+This schema is named Analytics and holds the star dimensional model. As seen in the above diagram the central fact transaction table is the core that contains the the metrics and the foreign keys to the related dimension tables. This methedology is what drives scalablity, optimised performance, denormalisation and accessibility. The fact table minimised to hold only keys to dimensions along with incremental data load stable solution 
 
 Reporting Layer
-The data is modeled to the next layer called the Reporting Layer. This layer extracts OBTs by combining Facts and Dims to be directly used in a BI tool optimised for end users. This layer will be fully defined by business use cases and will have the pre-aggregations, so that it does not need to be in a BI visualisation tool. This layer is used by analyst for data to day request and in this assignment for querying the answers for the data pull questions.
+The data is modeled to the next layer named the Reporting Layer. This layer extracts facts and dims to OBTs to be directly used in a BI tool optimised for end users. This layer will be fully defined by business use cases and will have the pre-aggregations, so that it does not need to be in a BI visualisation tool. This layer is used by analyst for data to day request and in this assignment for querying the answers for the data pull questions.
 
-🧪 Testing & Quality Checks
+### 🧪 Testing & Quality Checks
 Implemented using: schema.yml-based tests (not_null, unique, etc.)
 Custom tests: Integer format check, Timestamp validity, Row count comparisons between layers
 SQLFluff linting (CI via GitHub Actions)
 
-📤 Output / Results
+### 📤 Output / Results
 After successful dbt build, the Postgres DB (sumup) will contain:
 🚀 Clean tables ready for analysis structured in organised schemas
 ✅ Validated and type-checked data
 🧾 Pre-joined reporting tables
-🔍 Answers to the SQL questions already executed to OUTPUT schema
+🔍 Answers to the SQL questions in analyses schema
 📚 Documentation (dbt docs generate + dbt docs serve)
 
 ![Sumup](documentation/image-1.png)
