@@ -5,34 +5,34 @@
 - [Output](analyses)
 
 - Execution  
-<br />-Downaload & install [postgres](https://www.postgresql.org/download/)  
-Download [Dbeaver](https://dbeaver.io/download/) for running sql queries and verifying the DB.  
-Open Dbeaver and in sql code window create database named "sumup" to host all the data.
+<br />-> Downaload & install [postgres](https://www.postgresql.org/download/)  
+-> Download [Dbeaver](https://dbeaver.io/download/) for running sql queries and verifying the DB.  
+-> Open Dbeaver and in sql code window create database named "sumup" to host all the data.
 <pre><code>create database sumup;</code></pre>
-
+-> If the new DB is not shown on the left side navigation pane, create a connection with details provided
 ![connection](documentation/image3.png)  
-If the new DB is not shown on the left side navigation pane, click new connection  
-    "dbname": "sumup",
+-   "dbname": "sumup",
     "user": "postgres",
     "password": "admin",
-    "host": "localhost",
+<br />"host": "localhost",
     "port": 5432
-Clone the repository from GitHub
+<br />-> Clone the repository from GitHub
 <pre><code>git clone https://github.com/marzooqe/project_sumup.git
 cd project_sumup </code></pre>
-Place Excel files inside [source_data](source_data)
-(The files shared is already placed inside. This step is optional to add more data of same source data for testing )
-Create Python environment and install requirements
+-> Place raw excel files inside [source_data](source_data)
+(The files shared is already placed inside. This step is optional to add more data for testing )
+<br />-> Create Python environment
 <pre><code>python -m venv dbt-env
 dbt-env\Scripts\activate       (on Windows)</code></pre>
-Run the complete pipline in one go. Triggers python script converting the files to csv -> chain executes next step running dbt build -> dbt test -> dbt run
+-> Run the complete pipline in one go. Triggers python script converting the files to csv -> chain executes next step running dbt build -> dbt test -> dbt run
 <pre><code>pip install -r requirements.txt && python run_elt_pipeline.py</code></pre>
+-> Now the complete setup is build having data loaded to 3 layer architecture. The data is ready in reporting layer for analysis and to start with the SQL queries in the [analyses](analyses) folder will answer the business question asked.
 
 
 # Project SumUp
 Welcome to the Project SumUp repository! This project implements ETL workflow using dbt & python, architecting raw transactional data into data model and actionable business insights.
 
-🧭 Overview
+###🧭 Overview
 This project simulates a modern data stack that is organised,clean, scalable which addresses data queries from analytics. It includes:
 
 ✅ Raw data ingestion from Excel files using python script
@@ -40,7 +40,7 @@ This project simulates a modern data stack that is organised,clean, scalable whi
 📂 Data architecture and modeling concept
 
 🏗️ Data transformation into layers in dbt:
-TRANSFORM (cleaned staging layer)
+TRANSFORM (cleaned and basic transformation from staging layer)
 ANALYTICS (well-defined star dimensional models)
 REPORTING (business focused OBT)
 
@@ -48,7 +48,7 @@ REPORTING (business focused OBT)
 
 💡 SQL file answering the data questions with output tables:
 
-⚙️ Prerequisites
+###⚙️ Prerequisites
 The following tools and setup is required to execute this project:
 
 Tool	        Version	            Description
@@ -59,48 +59,48 @@ PostgreSQL	    ≥ 13	            Local database
 SQLFluff	    ≥ 2.0	            SQL linting and formatting
 DBeaver         25.1.0              UI for querying and verification
 
-Links to installation 
+The installation and links are provided in the quick start.
 
+###📂 Project Structure  
+    project_sumup/  
+    ├── models/  
+    │   ├── TRANSFORM/       # Cleaned transformed data  
+    │   ├── ANALYTICS/       # Dimensional models (DIM_) & Fact tables(FACT_)  
+    │   ├── REPORTING/       # Combined OBT tables, metrics  
+    ├── seeds/               # Raw CSV data  
+    ├── analyses/            # SQL queries for final business question  
+    ├── python_scripts/      # Repository for holding the python codes  
+    ├── tests/               # custom test cases for data quality  
+    ├── macros/              # Custom dbt macros  
+    ├── .sqlfluff            # Linting configuration  
+    ├── dbt_project.yml      # Project metadata  
+    └── README.md            # 📄 You're here!  
 
-📂 Project Structure
-    project_sumup/
-    ├── models/
-    │   ├── TRANSFORM/       # Cleaned raw data
-    │   ├── ANALYTICS/       # Dimensional models (DIM_)
-    │   ├── REPORTING/       # Fact tables, metrics
-    │   ├── OUTPUT/          # Results from sql data queries
-    │   ├── schema.yml       # Documentation & tests
-    ├── seeds/               # Raw CSV data
-    ├── macros/              # Custom dbt macros
-    ├── .sqlfluff            # Linting configuration
-    ├── dbt_project.yml      # Project metadata
-    └── README.md            # 📄 You're here!
+###🚀 Execution Guide   
+Execution  
+<br />-> Downaload & install [postgres](https://www.postgresql.org/download/)  
+-> Download [Dbeaver](https://dbeaver.io/download/) for running sql queries and verifying the DB.  
+-> Open Dbeaver and in sql code window create database named "sumup" to host all the data.
+<pre><code>create database sumup;</code></pre>
+-> If the new DB is not shown on the left side navigation pane, create a connection with details provided
+![connection](documentation/image3.png)  
+-   "dbname": "sumup",
+    "user": "postgres",
+    "password": "admin",
+<br />"host": "localhost",
+    "port": 5432
+<br />-> Clone the repository from GitHub
+<pre><code>git clone https://github.com/marzooqe/project_sumup.git
+cd project_sumup </code></pre>
+-> Place raw excel files inside [source_data](source_data)
+(The files shared is already placed inside. This step is optional to add more data for testing )
+<br />-> Create Python environment
+<pre><code>python -m venv dbt-env
+dbt-env\Scripts\activate       (on Windows)</code></pre>
+-> Run the complete pipline in one go. Triggers python script converting the files to csv -> chain executes next step running dbt build -> dbt test -> dbt run
+<pre><code>pip install -r requirements.txt && python run_elt_pipeline.py</code></pre>
+-> Now the complete setup is build having data loaded to 3 layer architecture. The data is ready in reporting layer for analysis and to start with the SQL queries in the [analyses](analyses) folder will answer the business question asked.  
 
-🚀 Execution Guide
-1. 🔧 Set Up Environment
-Clone the git to local device
-open terminal 
-# Create virtual environment
-python -m venv dbt-env
-dbt-env\Scripts\activate on Windows
-# Install dependencies
-pip install -r requirements.txt
-pip install dbt-postgres sqlfluff sqlfluff-templater-dbt
-
-2. 🛠️ Data ETL 
-
-Add the raw data in a folder named raw data. 
-execute the python scripts to load data to staging layer
-convert_xlsx_tocsv.py
-load_csv_to_postgres.py  OR copy the new csv files to dbt seed and run "dbt seed"
-
-4. 🏗️ Run dbt Models
-# Run all dbt models and tests
-dbt build
-
-dbt run 
-
-dbt test
 
 🧱 Data Model / Architecture
 ![Data Model](documentation/image.png)
