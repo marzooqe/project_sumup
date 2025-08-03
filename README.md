@@ -10,7 +10,7 @@ Download [Dbeaver](https://dbeaver.io/download/) for running sql queries and ver
 Open Dbeaver and in sql code window create database named "sumup" to host all the data.
 <pre><code>create database sumup;</code></pre>
 
-![connection](documentation/image-1.png)
+![connection](documentation/image3.png)  
 If the new DB is not shown on the left side navigation pane, click new connection  
     "dbname": "sumup",
     "user": "postgres",
