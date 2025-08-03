@@ -5,7 +5,7 @@
 - [Output](analyses)
 
 - Execution  
-<br />Downaload & install [postgres](https://www.postgresql.org/download/)  
+<br />-Downaload & install [postgres](https://www.postgresql.org/download/)  
 Download [Dbeaver](https://dbeaver.io/download/) for running sql queries and verifying the DB.  
 Open Dbeaver and in sql code window create database named "sumup" to host all the data.
 <pre><code>create database sumup;</code></pre>
