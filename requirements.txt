@@ -1,11 +1,11 @@
 # DBT for PostgreSQL
-dbt-core==1.10.6
-dbt-postgres==1.10.6
+dbt-core
+dbt-postgres
 
 # Excel file handling
-openpyxl==3.1.2
+openpyxl
 
 # SQL Linting
-sqlfluff==3.0.7
-sqlfluff-templater-dbt==3.0.7
+sqlfluff
+sqlfluff-templater-dbt
 

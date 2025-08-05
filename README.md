@@ -25,7 +25,7 @@ cd project_sumup </code></pre>
 <pre><code>python -m venv dbt-env
 dbt-env\Scripts\activate       (on Windows)</code></pre>
 -> Run the complete pipline in one go. Triggers python script converting the files to csv -> chain executes next step running dbt build -> dbt test -> dbt run
-<pre><code>pip install -r requirements.txt && python run_elt_pipeline.py</code></pre>
+<pre><code>pip install -r requirements.txt && python python_scripts/run_elt_pipeline.py</code></pre>
 -> Now the complete setup is build having data loaded to 3 layer architecture. The data is ready in reporting layer for analysis and to start with the SQL queries in the [analyses](analyses) folder will answer the business question asked.
 
 
