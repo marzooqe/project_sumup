@@ -2,7 +2,10 @@ import csv
 import psycopg2
 import os
 
-def load_csv_to_postgres(csv_path, table_name, conn_config, schema="STAGING"):
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+INPUT_DIR = os.path.join(ROOT_DIR, "csv_raw_files")   # sumup input .xlsx files here
+
+def load_csv_to_postgres(csv_path, table_name, conn_config, schema):
     conn = psycopg2.connect(**conn_config)
     cur = conn.cursor()
     
@@ -17,7 +20,6 @@ def load_csv_to_postgres(csv_path, table_name, conn_config, schema="STAGING"):
         cur.execute(create_sql)
 
         f.seek(0)
-        next(f)
         cur.copy_expert(f"COPY {schema}.{table_name} FROM STDIN WITH CSV HEADER DELIMITER ','", f)
 
     conn.commit()
@@ -25,17 +27,16 @@ def load_csv_to_postgres(csv_path, table_name, conn_config, schema="STAGING"):
     conn.close()
     print(f"✅ Loaded: {csv_path} → {schema}.{table_name}")
 
-def load_all_csvs_in_folder(folder_path, conn_config, table_prefix="raw_", schema="STAGING" ):
+def load_all_csvs_in_folder(folder_path, conn_config, schema ):
     for file in os.listdir(folder_path):
         if file.endswith(".csv"):
             csv_path = os.path.join(folder_path, file)
             base_name = os.path.splitext(file)[0]
-            table_name = f"{table_prefix}{base_name}"
+            table_name = f"{base_name}"
             load_csv_to_postgres(csv_path, table_name, conn_config, schema)
 
-# --- Usage ---
 if __name__ == "__main__":
-    csv_folder = SEED_DIR = os.path.join(ROOT_DIR, "seeds")  # Folder containing .csv files
+    csv_folder = INPUT_DIR  # Folder containing .csv files
 
     connection_config = {
         "dbname": "sumup",

@@ -39,7 +39,7 @@ def run_dbt():
     subprocess.run(["dbt", "seed", "--full-refresh"], check=True, cwd=ROOT_DIR)
     subprocess.run(["dbt", "build"], check=True, cwd=ROOT_DIR)
     subprocess.run(["dbt", "run"], check=True, cwd=ROOT_DIR)
-    print("✅ DBT pipeline completed.")
+    print("✅ DBT pipeline completed successfully.")
 
 def main():
     print("🔧 Starting data pipeline...")

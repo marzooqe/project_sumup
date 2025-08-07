@@ -100,7 +100,15 @@ cd project_sumup </code></pre>
 <pre><code>python -m venv dbt-env
 dbt-env\Scripts\activate       (on Windows)</code></pre>
 -> Run the complete pipline in one go. Triggers python script converting the files to csv -> chain executes next step running dbt build -> dbt test -> dbt run
-<pre><code>pip install -r requirements.txt && python run_elt_pipeline.py</code></pre>
+<pre><code>pip install -r requirements.txt && python python_scripts/run_elt_pipeline.py</code></pre>
+** OR **
+-> Incase the seed functionality is not prefered and exectuion is needed step by step the below query can be executed one after the other.
+<pre><code>pip install -r requirements.txt</code></pre>
+<pre><code>python python_scripts/excel_to_csv_conversion.py</code></pre>
+<pre><code>python python_scripts/load_csv_to_postgres.py</code></pre>
+<pre><code>dbt build</code></pre>
+<pre><code>dbt test</code></pre>
+
 -> Now the complete setup is build having data loaded to 3 layer architecture. The data is ready in reporting layer for analysis and to start with the SQL queries in the [analyses](analyses) folder will answer the business question asked.  
 
 

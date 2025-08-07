@@ -1,5 +1,10 @@
-SELECT
-    CAST(ID AS INTEGER) AS ID,
+{{ config(
+    materialized='incremental',
+    unique_key='ID'
+) }}
+
+SELECT DISTINCT
+    CAST(FLOOR(ID::NUMERIC) AS INTEGER)  AS ID,
     NAME,
     ADDRESS,
     CITY,
@@ -7,4 +12,10 @@ SELECT
     CREATED_AT,
     TYPOLOGY,
     CAST(CUSTOMER_ID AS INTEGER) AS CUSTOMER_ID    
-FROM {{ ref('stores') }}
+FROM {{ source('staging','stores') }}
+
+{% if is_incremental() %}
+WHERE CAST(FLOOR(ID::NUMERIC) AS INTEGER) NOT IN (
+    SELECT ID FROM {{ this }}
+)
+{% endif %}

@@ -2,8 +2,9 @@ import os
 import csv
 from openpyxl import load_workbook
 
-INPUT_DIR = "source_data"
-SEED_DIR = "seeds"
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+INPUT_DIR = os.path.join(ROOT_DIR, "source_data")   # sumup input .xlsx files here
+OUTPUT_DIR = os.path.join(ROOT_DIR, "csv_raw_files")
 
 def convert_xlsx_to_csv(xlsx_file_path, csv_file_path):
     workbook = load_workbook(filename=xlsx_file_path, read_only=True, data_only=True)
@@ -16,7 +17,7 @@ def convert_xlsx_to_csv(xlsx_file_path, csv_file_path):
 
     print(f"✅ Converted {os.path.basename(xlsx_file_path)} → {os.path.basename(csv_file_path)}")
 
-def convert_all_excels(input_dir=INPUT_DIR, output_dir=SEED_DIR):
+def convert_all_excels(input_dir=INPUT_DIR, output_dir=OUTPUT_DIR):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 

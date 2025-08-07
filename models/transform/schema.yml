@@ -1,6 +1,14 @@
 
 version: 2
 
+sources:
+  - name: staging
+    schema: staging
+    tables:
+      - name: transactions
+      - name: stores
+      - name: devices
+
 models:
   - name: device
     description: >
