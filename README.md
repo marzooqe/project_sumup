@@ -142,4 +142,6 @@ After successful dbt build, the Postgres DB (sumup) will contain:
 🔍 Answers to the SQL questions in analyses schema
 📚 Documentation (dbt docs generate + dbt docs serve)
 
+*why postgres -> As it has mentioned use of any database is allowed and currently not having anymore trial account left in snowflake. The next best option that any reviewer can deploy in local was postgres hence this database is used.
+
 ![Sumup](documentation/image-1.png)
