@@ -78,7 +78,9 @@ The installation and links are provided in the quick start.
 
 ### 🚀 Execution Guide     
 Working
-The complete execution is chained to sequentially trigger starting from python ELT. The python code triggered picks the excel file from source file of the repository. Converts the excel to csv by taking files with xlsx extention. The converted files are then placed in seed folder of DBT. Python then triggers dbt build creating the schemas and respective tables. Followed by this the dbt test is triggered veryfying the data. Finally the data is available in reporting schema and the analyses folder has executable sql queries for business questions.
+The complete execution is chained to sequentially trigger starting from python ELT. The python code triggered picks the excel file from source file of the repository. Converts the excel to csv by taking files with xlsx extention. The converted files are then placed in seed folder of DBT (or can use python manual script). Python then triggers dbt build creating the schemas and respective tables. Followed by this the dbt test is triggered veryfying the data. Finally the data is available in reporting schema and the analyses folder has executable sql queries for business questions.
+
+process cycle = Convert xlsx to csv -> load data to pgs -> incremental deduplicated data push to transform layer with datatype correction, cleaning & test cases -> incremental load to analytics layer into star dimensional architecture -> full refresh of reporting layer with OBT table
 
 <br />-> Downaload & install [postgres](https://www.postgresql.org/download/)  
 -> Download [Dbeaver](https://dbeaver.io/download/) for running sql queries and verifying the DB.  

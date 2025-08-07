@@ -3,7 +3,7 @@
     unique_key='ID'
 ) }}
 
-SELECT DISTINCT
+SELECT
     CAST(FLOOR(ID::NUMERIC) AS INTEGER)  AS ID,
     NAME,
     ADDRESS,
